@@ -1,5 +1,6 @@
 package com.source.ecommerce.watches.service;
 
+import com.source.ecommerce.watches.dto.ResponseDTO;
 import com.source.ecommerce.watches.model.Watch;
 import com.source.ecommerce.watches.repository.WatchesRepository;
 import org.springframework.stereotype.Service;
@@ -22,12 +23,15 @@ public class WatchesService {
         return watchesRepository.findByWatchId(watchId);
     }
 
-    public Long calculateThePriceOfTheGivenGoods(final List<String> listOfWatches) {
+    public ResponseDTO calculateThePriceOfTheGivenGoods(final List<String> listOfWatches) {
         Long result = 0L;
+        ResponseDTO responseDTO = new ResponseDTO();
+
         Set<Watch> watchList = watchesRepository.findByWatchId(listOfWatches);
 
         if (watchList.isEmpty()) {
-            return 0L;
+            responseDTO.setPrice(0L);
+            return responseDTO;
         }
         Map<String, Integer> watchQuantityMap = calculateWatchesQuantity(listOfWatches);
 
@@ -41,8 +45,9 @@ public class WatchesService {
             int summaryWatchTypePrice = totalPriceWithoutDiscount - discount;
 
             result = result + summaryWatchTypePrice;
+            responseDTO.setPrice(result);
         }
-        return result;
+        return responseDTO;
     }
 
     private Watch findWatchById(final Set<Watch> watchList, final String watchId) {
