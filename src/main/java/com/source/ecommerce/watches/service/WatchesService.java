@@ -22,17 +22,13 @@ public class WatchesService {
         return watchesRepository.findByWatchId(watchId);
     }
 
-    public Long calculatePrice(final List<String> listOfWatches) {
-        //listOfWatches.forEach(System.out::println);
+    public Long calculateThePriceOfTheGivenGoods(final List<String> listOfWatches) {
         Long result = 0L;
-
-        List<Watch> watchList = watchesRepository.findByWatchId(listOfWatches);
+        Set<Watch> watchList = watchesRepository.findByWatchId(listOfWatches);
 
         if (watchList.isEmpty()) {
             return 0L;
         }
-        //System.out.println(watchList.size());
-
         Map<String, Integer> watchQuantityMap = calculateWatchesQuantity(listOfWatches);
 
         Set<Map.Entry<String, Integer>> watchQuantitySet = watchQuantityMap.entrySet();
@@ -49,12 +45,12 @@ public class WatchesService {
         return result;
     }
 
-    private Watch findWatchById(final List<Watch> watchList, final String watchId) {
+    private Watch findWatchById(final Set<Watch> watchList, final String watchId) {
 
         return watchList
                 .stream()
                 .filter(watch -> watch.getWatchId().equals(watchId))
-                .findFirst().get();
+                .findFirst().orElse(null);
     }
 
     private static Integer calculateDiscount(final int watchesQuantity, final Integer discount,

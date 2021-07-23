@@ -4,7 +4,7 @@ import com.source.ecommerce.watches.model.Watch;
 import com.source.ecommerce.watches.service.WatchesService;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.ArrayList;
+import java.util.List;
 
 @RestController
 @RequestMapping("/checkout")
@@ -16,16 +16,13 @@ public class StoreController {
         this.watchesService = watchesService;
     }
 
+    @PostMapping(consumes = "application/json")
+    public Long calculatePrice(@RequestBody List<String> listOfWatches) {
+        return watchesService.calculateThePriceOfTheGivenGoods(listOfWatches);
+    }
+
     @GetMapping("/{watchId}")
     public Watch getWatchDetailsByWatchId(@PathVariable String watchId) {
         return watchesService.getWatchDetailsByWatchId(watchId);
     }
-
-    @PostMapping(consumes = "application/json")
-    public Long calculatePrice(@RequestBody ArrayList<String> listOfWatches) {
-        return watchesService.calculatePrice(listOfWatches);
-
-    }
-
-
 }

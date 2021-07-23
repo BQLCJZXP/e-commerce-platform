@@ -7,15 +7,14 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Set;
 
 @Repository
 public interface WatchesRepository extends JpaRepository<Watch, Long> {
 
-
     Watch findByWatchId(String watchId);
 
     @Query("from Watch w where w.watchId in :watchIds")
-    List<Watch> findByWatchId(@Param("watchIds") List<String> watchIds);
-
+    Set<Watch> findByWatchId(@Param("watchIds") List<String> watchIds);
 
 }
