@@ -19,7 +19,7 @@ public class StoreController {
 
     @PostMapping(consumes = "application/json")
     public ResponseDTO calculatePrice(@RequestBody List<String> listOfWatches) {
-        return watchesService.calculateThePriceOfTheGivenGoods(listOfWatches);
+        return watchesService.calculateThePriceOfTheGivenWatches(listOfWatches);
     }
 
     @GetMapping("/{watchId}")

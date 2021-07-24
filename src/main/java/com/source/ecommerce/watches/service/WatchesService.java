@@ -23,7 +23,7 @@ public class WatchesService {
         return watchesRepository.findByWatchId(watchId);
     }
 
-    public ResponseDTO calculateThePriceOfTheGivenGoods(final List<String> listOfWatches) {
+    public ResponseDTO calculateThePriceOfTheGivenWatches(final List<String> listOfWatches) {
         Long result = 0L;
         ResponseDTO responseDTO = new ResponseDTO();
 
