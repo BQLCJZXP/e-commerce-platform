@@ -1,6 +1,6 @@
 package com.source.ecommerce.watches.controller;
 
-import com.source.ecommerce.watches.dto.ResponseDTO;
+import com.source.ecommerce.watches.dto.OrderResponseDTO;
 import com.source.ecommerce.watches.model.Watch;
 import com.source.ecommerce.watches.service.WatchesService;
 import org.springframework.web.bind.annotation.*;
@@ -18,7 +18,7 @@ public class StoreController {
     }
 
     @PostMapping(consumes = "application/json")
-    public ResponseDTO calculatePrice(@RequestBody List<String> listOfWatches) {
+    public OrderResponseDTO calculatePrice(@RequestBody List<String> listOfWatches) {
         return watchesService.calculateThePriceOfTheGivenWatches(listOfWatches);
     }
 

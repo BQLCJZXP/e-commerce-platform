@@ -1,6 +1,6 @@
 package com.source.ecommerce.watches.service;
 
-import com.source.ecommerce.watches.dto.ResponseDTO;
+import com.source.ecommerce.watches.dto.OrderResponseDTO;
 import com.source.ecommerce.watches.model.Watch;
 import com.source.ecommerce.watches.repository.WatchesRepository;
 import org.springframework.stereotype.Service;
@@ -23,7 +23,7 @@ public class WatchesService {
         return watchesRepository.findByWatchId(watchId);
     }
 
-    public ResponseDTO calculateThePriceOfTheGivenWatches(final List<String> listOfWatches) {
+    public OrderResponseDTO calculateThePriceOfTheGivenWatches(final List<String> listOfWatches) {
         return orderCostCalculator.calculateThePriceOfTheGivenWatches(listOfWatches);
     }
 }

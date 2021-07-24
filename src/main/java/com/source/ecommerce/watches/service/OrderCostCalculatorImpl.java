@@ -1,6 +1,6 @@
 package com.source.ecommerce.watches.service;
 
-import com.source.ecommerce.watches.dto.ResponseDTO;
+import com.source.ecommerce.watches.dto.OrderResponseDTO;
 import com.source.ecommerce.watches.model.Watch;
 import com.source.ecommerce.watches.repository.WatchesRepository;
 import org.springframework.stereotype.Component;
@@ -20,15 +20,15 @@ public class OrderCostCalculatorImpl implements OrderCostCalculator {
     }
 
     @Override
-    public ResponseDTO calculateThePriceOfTheGivenWatches(final List<String> listOfWatches) {
+    public OrderResponseDTO calculateThePriceOfTheGivenWatches(final List<String> listOfWatches) {
         Long result = 0L;
-        ResponseDTO responseDTO = new ResponseDTO();
+        OrderResponseDTO orderResponseDTO = new OrderResponseDTO();
 
         Set<Watch> watchList = watchesRepository.findByWatchId(listOfWatches);
 
         if (watchList.isEmpty()) {
-            responseDTO.setPrice(0L);
-            return responseDTO;
+            orderResponseDTO.setPrice(0L);
+            return orderResponseDTO;
         }
         Map<String, Integer> watchQuantityMap = calculateWatchesQuantity(listOfWatches);
 
@@ -42,9 +42,9 @@ public class OrderCostCalculatorImpl implements OrderCostCalculator {
             int summaryWatchTypePrice = totalPriceWithoutDiscount - discount;
 
             result = result + summaryWatchTypePrice;
-            responseDTO.setPrice(result);
+            orderResponseDTO.setPrice(result);
         }
-        return responseDTO;
+        return orderResponseDTO;
     }
 
     private static Integer calculateDiscount(final int watchesQuantity, final Integer discount,
